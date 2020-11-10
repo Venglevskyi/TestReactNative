@@ -1,30 +1,18 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1, padding: 20, alignItems: "center" },
+  image: {
+    width: 200,
+    height: 300,
+    resizeMode: "cover",
+    marginBottom: 10,
+  },
+  wrapper: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-  },
-  buttonContainer: {
-    width: 350,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
-  },
-  button: {
-    width: 150,
-    backgroundColor: "#97d1cb",
-    padding: 10,
-  },
-  text: {
-    textAlign: "center",
-    fontSize: 16,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 20,
+    alignItems: "center",
   },
 });
 

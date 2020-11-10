@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     minWidth: 100,
   },
   cardImage: {
-    resizeMode: "contain",
+    resizeMode: "stretch",
   },
   cardText: {
     textAlign: "center",

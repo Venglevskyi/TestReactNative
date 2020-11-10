@@ -1,22 +1,26 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "http://ws.audioscrobbler.com/2.0/";
 axios.defaults.headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };
 
-const getCurrentWeatherByQuery = (query) => {
-  const baseURL = "http://api.weatherstack.com/";
-  const requestParams = `?access_key=fe27553a221f3a38ea4012e0aec8e317&query=${query}`;
+const getPopularMusic = () => {
+  const requestParams =
+    "?method=chart.gettoptracks&api_key=c6cf44fe31333d3e0297aee40cd0c75d&format=json&limit=5";
   return axios
-    .get(baseURL + "current" + requestParams)
-    .then(({ data }) => data);
+    .get(requestParams)
+    .then(({ data }) => data.tracks)
+    .catch((error) => console.warn(error));
 };
 
-const showPopularMovies = () => {
-  const baseURL = "https://api.themoviedb.org/3/trending/all/day";
-  const requestParams = "?api_key=ffb803f52f4e27e6105837b5e1f7e8d0&page=1";
-  return axios.get(baseURL + requestParams).then(({ data }) => data.results);
+const aboutArtist = (name) => {
+  const requestParams = `?method=artist.getinfo&artist=${name}&api_key=c6cf44fe31333d3e0297aee40cd0c75d&format=json`;
+  return axios
+    .get(requestParams)
+    .then(({ data }) => data.artist)
+    .catch((error) => console.warn(error));
 };
 
-export { getCurrentWeatherByQuery, showPopularMovies };
+export { getPopularMusic, aboutArtist };
