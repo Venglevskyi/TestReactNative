@@ -23,4 +23,12 @@ const aboutArtist = (name) => {
     .catch((error) => console.warn(error));
 };
 
-export { getPopularMusic, aboutArtist };
+const searchTrackByName = (name) => {
+  const requestParams = `?method=track.search&track=${name}&api_key=c6cf44fe31333d3e0297aee40cd0c75d&format=json&limit=5`;
+  return axios
+    .get(requestParams)
+    .then(({ data }) => data.results.trackmatches)
+    .catch((error) => console.warn(error));
+};
+
+export { getPopularMusic, aboutArtist, searchTrackByName };

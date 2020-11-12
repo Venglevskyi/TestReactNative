@@ -1,33 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { ScrollView, View, Text } from "react-native";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ScrollView, View, Text, Button } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { Image } from "react-native-elements";
 import { getTracks } from "../../redux/operations";
 
 import { styles } from "./styles";
-import { getPopularMusic } from "../../api/api";
 
-const Home = ({ navigation, onGetTracks }) => {
-  const [tracks, setTracks] = useState(null);
+const Home = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const tracks = useSelector((state) => state.tracks);
 
   useEffect(() => {
-    getPopularMusic().then((data) => setTracks(data.track));
+    dispatch(getTracks());
   }, []);
-
-  // useEffect(() => {
-  //   async function getRequest() {
-  //     let data = await onGetTracks();
-  //     setTracks(data);
-  //   }
-  //   getRequest();
-  // }, []);
 
   return (
     <ScrollView>
       <View style={styles.container}>
         {tracks &&
-          tracks.map(({ name, playcount, artist }) => (
+          tracks.map(({ name, playcount, artist, url }) => (
             <Image
               style={styles.image}
               source={{
@@ -43,18 +35,20 @@ const Home = ({ navigation, onGetTracks }) => {
               }
             >
               <View style={styles.wrapper}>
-                <Text style={styles.trackName}>{name}</Text>
-                <Text style={styles.artistName}>{artist.name}</Text>
+                <Text>{name}</Text>
+                <Text>{artist.name}</Text>
+                <Text>{url}</Text>
               </View>
             </Image>
           ))}
       </View>
+      <Button
+        title="Search more tracks"
+        color="#6666ff"
+        onPress={() => navigation.navigate("Search")}
+      ></Button>
     </ScrollView>
   );
 };
 
-const mapDispatchToProps = {
-  onGetTracks: getTracks,
-};
-
-export default connect(null, mapDispatchToProps)(Home);
+export { Home };

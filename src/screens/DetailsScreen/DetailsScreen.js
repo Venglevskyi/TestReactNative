@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text } from "react-native";
 import { Card } from "react-native-elements";
 
 import { styles } from "./styles";
-import { aboutArtist } from "../../api/api";
+import { getDetailsTrack } from "../../redux/operations";
 
 const DetailsScreen = ({ route }) => {
   const { name } = route.params;
-
-  const [artist, setArtist] = useState(null);
+  const dispatch = useDispatch();
+  const artist = useSelector((state) => state.details);
 
   useEffect(() => {
-    aboutArtist(name).then((data) => setArtist(data));
+    dispatch(getDetailsTrack(name));
   }, []);
 
   return (
@@ -31,7 +32,7 @@ const DetailsScreen = ({ route }) => {
             {`About artist: ${artist.bio.summary}`}
           </Text>
           <Text style={styles.cardText}>
-            {`Tags: ${artist.tags.tag.map((tag) => tag.name)}`}
+            {`Tags: ${artist.tags.tag.map((item) => item.name)}`}
           </Text>
         </Card>
       )}

@@ -1,9 +1,20 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-import { getPopularTracksSuccess } from "./actions";
+import {
+  getPopularTracksSuccess,
+  getDetailsTrackSuccess,
+  searchTrackSuccess,
+} from "./actions";
 
 const tracks = createReducer([], {
-  [getPopularTracksSuccess]: (state, action) => action.payload,
+  [getPopularTracksSuccess]: (_, action) => action.payload,
 });
 
-export default combineReducers({ tracks });
+const details = createReducer(null, {
+  [getDetailsTrackSuccess]: (_, action) => action.payload,
+});
+
+const searchTrack = createReducer(null, {
+  [searchTrackSuccess]: (_, action) => action.payload,
+});
+
+export { tracks, details, searchTrack };

@@ -1,10 +1,8 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import tracks from "./reducer";
+import { tracks, details, searchTrack } from "./reducer";
 
 const store = configureStore({
-  reducer: {
-    tracks,
-  },
+  reducer: { tracks, details, searchTrack },
   middleware: [...getDefaultMiddleware()],
 });
 
